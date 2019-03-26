@@ -20,13 +20,16 @@ exports.handler = async (event, context, callback) => {
       width: 1280,
       height: 960,
     });
-
-    await page.goto(event.url, { waitUntil: 'domcontentloaded' });
+    const url = event.query.url;
+    await page.goto(url, { waitUntil: 'domcontentloaded' });
     await page.waitFor(1000);
 
     const base64 = await page.screenshot({ encoding: 'base64', type: 'jpeg' });
 
-    result = `data:image/jpeg;base64,${base64}`;
+    result = {
+      url: url,
+      base64: base64,
+    };
   } catch (error) {
     return context.fail(error);
   } finally {
