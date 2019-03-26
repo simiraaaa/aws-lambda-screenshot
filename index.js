@@ -3,7 +3,7 @@ process.env.HOME = process.env.LAMBDA_TASK_ROOT;
 const chromium = require('chrome-aws-lambda');
 const puppeteer = require('puppeteer-core');
 
-exports.handler = async (event, context) => {
+exports.handler = async (event, context, callback) => {
   let result = null;
   let browser = null;
 
@@ -16,6 +16,10 @@ exports.handler = async (event, context) => {
     });
 
     let page = await browser.newPage();
+    page.setViewport({
+      width: 1280,
+      height: 960,
+    });
 
     await page.goto(event.url, { waitUntil: 'domcontentloaded' });
     await page.waitFor(1000);
@@ -30,6 +34,6 @@ exports.handler = async (event, context) => {
       await browser.close();
     }
   }
-
-  return context.succeed(result);
+  return result;
+  // callback(null, result);
 };
