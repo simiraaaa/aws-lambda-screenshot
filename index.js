@@ -17,9 +17,9 @@ exports.handler = async (event, context) => {
     let page = await browser.newPage();
 
     await page.goto('https://qiita.com/', { waitUntil: 'domcontentloaded' });
-    await page.waitForNavigation({ timeout: 30000, waitUntil: 'domcontentloaded' });
     await page.waitFor(1000);
-    const base64 = await page.screenshot({ base64: true, type: 'jpeg' });
+
+    const base64 = await page.screenshot({ encoding: 'base64', type: 'jpeg' });
 
     result = `data:image/jpeg;base64,${base64}`;
   } catch (error) {
