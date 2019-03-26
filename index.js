@@ -1,4 +1,5 @@
-
+// ref: https://qiita.com/glhfdev/items/bb8cd0d937c671100200
+process.env.HOME = process.env.LAMBDA_TASK_ROOT;
 const chromium = require('chrome-aws-lambda');
 const puppeteer = require('puppeteer-core');
 
@@ -16,7 +17,7 @@ exports.handler = async (event, context) => {
 
     let page = await browser.newPage();
 
-    await page.goto('https://qiita.com/', { waitUntil: 'domcontentloaded' });
+    await page.goto(event.url, { waitUntil: 'domcontentloaded' });
     await page.waitFor(1000);
 
     const base64 = await page.screenshot({ encoding: 'base64', type: 'jpeg' });
