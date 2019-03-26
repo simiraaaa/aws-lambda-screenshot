@@ -1,3 +1,6 @@
 # AWS lambda スクショメモ
 ## インストール
-`PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=TRUE npm i`
+`npm i`
+
+## ref
+https://qiita.com/kodai-saito/items/9051d2b30a29c7d64f7d
